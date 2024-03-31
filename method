@@ -1,0 +1,7 @@
+def product_category_processing(products, category, connection):
+    df_joined = products.join(connection, products.product_id == connection.product_id)\
+        .join(category, connection.category_id == category.category_id, "left")
+
+    df_result = df_joined.select(products["product_name"], category["category_name"]).fillna("No category")
+
+    return df_result
